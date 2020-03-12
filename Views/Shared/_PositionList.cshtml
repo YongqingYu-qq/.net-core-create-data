@@ -1,0 +1,23 @@
+﻿@model IEnumerable<WebApplication_Core_mvc.Models.Position>
+<table class="table-bordered">
+    <tr>
+        <th>
+            PositionId
+        </th>
+        <th>
+            PositionName
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @item.PositionId
+            </td>
+            <td>
+                @item.PositionName
+            </td>
+
+        </tr>
+    }
+</table>

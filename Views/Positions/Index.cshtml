@@ -1,0 +1,52 @@
+﻿@model IEnumerable<WebApplication_Core_mvc.Models.Position>
+
+@{
+    ViewData["Title"] = "Create";
+}
+@section Scripts{
+
+    <script type="text/javascript">
+        $("#addBtn").click(function () {
+            $.ajax({
+                url: $(this).attr("formaction"),
+            }).done(function (msg) {
+                $("#AddContent").html(msg);
+                $("#add-contact").modal("show");
+            })
+        });
+        $("body").on("click", "#save", function () {
+            var form = $('form');
+            var token = $('input[name="__RequestVerificationToken"]', form).val();
+            $.ajax({
+                type: "post",
+                url: form.attr('action'),
+                data: {
+                    __RequestVerificationToken: token,
+                    position: {
+                        PositionName: $("#PositionName").val()
+                    }
+                },
+                dataType: "html",
+                success: function (result) {
+                    $("#add-contact").modal("hide");
+                    $("#partial").html(result);
+                }
+            });
+            return false;
+        });
+    </script>
+
+}
+
+<button class="btn btn-primary" asp-controller="Positions" asp-action="Create"
+        data-toggle="ajax-modal" data-target="#add-contact" id="addBtn">
+    Add new Positions
+</button>
+<br />
+<div class="modal fade" id="add-contact" tabindex="-1" role="dialog" aria-labelledby="addPositionsLabel" aria-hidden="true">
+    <div id="AddContent">
+    </div>
+</div>
+<div id="partial">
+    @Html.Partial("_PositionList", Model)
+</div>

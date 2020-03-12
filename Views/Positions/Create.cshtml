@@ -1,0 +1,35 @@
+﻿@model WebApplication_Core_mvc.Models.Position
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h3>Create Position</h3>
+<hr />
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="addPositionsLabel">Add positions</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <form asp-action="Create">
+                <input name="IsValid" type="hidden" value="@ViewData.ModelState.IsValid.ToString()" />
+                <div class="form-group">
+                    <label asp-for="PositionName"></label>
+                    <input asp-for="PositionName" class="form-control" />
+                    <span asp-validation-for="PositionName" class="text-danger"></span>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" data-save="modal" id="save">Save</button>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
